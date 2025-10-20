@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Artworks Display</title>
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <!-- Imports Axios, a JavaScript library that helps make API calls (HTTP requests). -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <!-- Imports Vue.js (version 2.7.16), a reactive JavaScript framework that handles dynamic data and UI updates. -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.16/vue.min.js"></script>
+</head>
+
+<body class="bg-light">
+  <div id="app" class="container my-5">
+    <!-- root element where Vue will attach and control everything. -->
+    <h2 class="mb-4 text-center text-primary">{{ title }}</h2>
+    <!-- Displays the Vue data variable title using {{ }}. -->
+
+    <!-- Loading -->
+    <!-- v-if="loading" means this block only shows when loading is true. It displays a Bootstrap spinner and text while data is being fetched. -->
+    <div v-if="loading" class="text-center">
+      <div class="spinner-border text-primary" role="status"></div>
+      <p>Loading artworks...</p>
+    </div>
+
+    <!-- Error -->
+    <!-- Shows an error message if Vue’s error variable has text. -->
+    <div v-if="error" class="alert alert-danger text-center">{{ error }}</div>
+
+    <!-- Display artworks -->
+    <div class="row" v-if="artworks.length">
+      <!-- means this section shows only when there’s data. -->
+      <div class="col-md-4 mb-4" v-for="(art, index) in artworks" :key="index">
+        <!-- v-for="(art, index) in artworks" loops through all artworks in the array. -->
+        <div class="card h-100 shadow-sm">
+          <img :src="'https://www.artic.edu/iiif/2/' + art.image_id + '/full/400,/0/default.jpg'" class="card-img-top"
+            alt="Artwork image" v-if="art.image_id">
+          <!-- means Vue binds the image URL dynamically. The URL is built using the image_id returned from the API. v-if="art.image_id" ensures it only shows if there’s an image available. -->
+          <div class="card-body">
+            <!-- Displays: The artwork title The artist name, or "Unknown" if missing The date, or "N/A" if missing {{ art.title }} — Vue replaces this with actual data from the API. -->
+            <h5 class="card-title">{{ art.title }}</h5>
+            <p class="card-text mb-1"><strong>Artist:</strong> {{ art.artist_title || 'Unknown' }}</p>
+            <p class="card-text"><strong>Date:</strong> {{ art.date_display || 'N/A' }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    new Vue({
+      // Creates a Vue instance and attaches it to the element with ID app.
+      el: "#app",
+      data: { // Declares reactive data variables:
+        title: "Art Institute of Chicago Artworks", // title: shown at the top.
+        artworks: [], // artworks: array to store the fetched data.
+        loading: false, // loading: used to show/hide the spinner.
+        error: "", // error: holds any error messages.
+      },
+      methods: { // Vue Methods
+        async fetchData() {
+          // fetchData() is an asynchronous function that: Sets loading = true to show spinner.Calls the API using axios.get(). Logs the response to the console for debugging.Saves the array of artworks (res.data.data) into this.artworks. If any error occurs, sets this.error message. In finally, sets loading = false to hide the spinner The function can pause while waiting for something slow (like fetching data from the internet). It can use the await keyword inside it to wait for a Promise (like a network request) to finish before continuing..
+          this.loading = true;
+          try {
+            const res = await axios.get("https://api.artic.edu/api/v1/artworks?page=1&limit=9");
+            console.log(res.data);
+            this.artworks = res.data.data; // store artworks array Saves the data into Vue’s data for display
+          } catch (err) {
+            this.error = "Failed to load artworks: " + err.message;
+            // Handles success and errors safely
+          } finally {
+            this.loading = false;
+          }
+        },
+      },
+      mounted() {
+        // The mounted() lifecycle hook runs after the Vue app is loaded into the page. It calls fetchData() immediately, fetching data as soon as the page loads.
+        this.fetchData();
+      },
+    });
+  </script>
+</body>
+
+</html>
