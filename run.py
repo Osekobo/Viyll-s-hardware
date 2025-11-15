@@ -1,0 +1,6 @@
+import uvicorn
+
+if _name_ == "_main_":
+    uvicorn.run(
+        "app.main:app",
+        host="0.0")

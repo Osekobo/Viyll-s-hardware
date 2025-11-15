@@ -1,0 +1,926 @@
+<!-- Kione Hardware Website
+
+I'll create a professional website for Kione Hardware that showcases their products and services. Here's a complete solution with HTML, CSS, and JavaScript all in one file:
+
+html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kione Hardware - Quality Tools & Building Materials in Migori</title>
+  <style>
+    /* Global Styles */
+    :root {
+      --primary: #2c5530;
+      --secondary: #14110c;
+      --light: #f8f9fa;
+      --dark: #343a40;
+      --gray: #6c757d;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      line-height: 1.6;
+      color: var(--dark);
+      background-color: #f5f5f5;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: var(--secondary);
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #b8860b;
+      transform: translateY(-2px);
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 40px;
+      position: relative;
+    }
+
+    .section-title:after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 3px;
+      background-color: var(--secondary);
+      margin: 10px auto;
+    }
+
+    /* Header Styles */
+    header {
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo h1 {
+      color: var(--primary);
+      font-size: 1.8rem;
+      margin-left: 10px;
+    }
+
+    .logo-icon {
+      color: var(--secondary);
+      font-size: 2rem;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+    }
+
+    nav ul li {
+      margin-left: 25px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      color: var(--secondary);
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--primary);
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      padding: 100px 0;
+      text-align: center;
+    }
+
+    .hero h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto 30px;
+    }
+
+    /* About Section */
+    .about {
+      padding: 80px 0;
+      background-color: white;
+    }
+
+    .about-content {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .about-text {
+      flex: 1;
+    }
+
+    .about-image {
+      flex: 1;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .about-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Products Section */
+    .products {
+      padding: 80px 0;
+      background-color: #f8f9fa;
+    }
+
+    .product-categories {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .category-btn {
+      background-color: white;
+      border: 1px solid #ddd;
+      padding: 8px 20px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .category-btn.active,
+    .category-btn:hover {
+      background-color: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .product-card {
+      background-color: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .product-image {
+      height: 200px;
+      background-color: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gray);
+    }
+
+    .product-info {
+      padding: 20px;
+    }
+
+    .product-info h3 {
+      margin-bottom: 10px;
+      color: var(--primary);
+    }
+
+    .product-price {
+      font-weight: bold;
+      color: var(--secondary);
+      margin-bottom: 10px;
+    }
+
+    /* Services Section */
+    .services {
+      padding: 80px 0;
+      background-color: white;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .service-card {
+      background-color: #f8f9fa;
+      padding: 30px;
+      border-radius: 8px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .service-card:hover {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .service-card:hover h3,
+    .service-card:hover p {
+      color: white;
+    }
+
+    .service-icon {
+      font-size: 2.5rem;
+      color: var(--secondary);
+      margin-bottom: 20px;
+    }
+
+    .service-card h3 {
+      margin-bottom: 15px;
+      color: var(--primary);
+    }
+
+    .service-card p {
+      color: var(--gray);
+    }
+
+    /* Team Section */
+    .team {
+      padding: 80px 0;
+      background-color: #f8f9fa;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .team-member {
+      background-color: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .member-photo {
+      height: 200px;
+      background-color: #e9ecef;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gray);
+    }
+
+    .member-info {
+      padding: 20px;
+    }
+
+    .member-info h3 {
+      margin-bottom: 5px;
+      color: var(--primary);
+    }
+
+    .member-role {
+      color: var(--secondary);
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+
+    /* Contact Section */
+    .contact {
+      padding: 80px 0;
+      background-color: white;
+    }
+
+    .contact-container {
+      display: flex;
+      gap: 40px;
+    }
+
+    .contact-info {
+      flex: 1;
+    }
+
+    .contact-form {
+      flex: 1;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 25px;
+    }
+
+    .contact-icon {
+      background-color: var(--primary);
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+      flex-shrink: 0;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 500;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+
+    .form-group textarea {
+      height: 150px;
+      resize: vertical;
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--dark);
+      color: white;
+      padding: 60px 0 20px;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-column h3 {
+      color: var(--secondary);
+      margin-bottom: 20px;
+      font-size: 1.2rem;
+    }
+
+    .footer-column ul {
+      list-style: none;
+    }
+
+    .footer-column ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-column ul li a {
+      color: #adb5bd;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-column ul li a:hover {
+      color: var(--secondary);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .social-links a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      color: white;
+      transition: all 0.3s ease;
+    }
+
+    .social-links a:hover {
+      background-color: var(--secondary);
+      transform: translateY(-3px);
+    }
+
+    .copyright {
+      text-align: center;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: #adb5bd;
+      font-size: 0.9rem;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 992px) {
+      .about-content {
+        flex-direction: column;
+      }
+
+      .contact-container {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header-container {
+        flex-wrap: wrap;
+      }
+
+      nav {
+        width: 100%;
+        margin-top: 15px;
+        display: none;
+      }
+
+      nav.active {
+        display: block;
+      }
+
+      nav ul {
+        flex-direction: column;
+      }
+
+      nav ul li {
+        margin: 0 0 10px 0;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .hero h2 {
+        font-size: 2rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container header-container">
+      <div class="logo">
+        <span class="logo-icon">🔨</span>
+        <h1>Kione Hardware</h1>
+      </div>
+      <button class="mobile-menu-btn">☰</button>
+      <nav id="main-nav">
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#products">Products</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="container">
+      <h2>Quality Hardware Solutions in Migori County</h2>
+      <p>Your trusted partner for all construction materials, tools, and expert advice. Serving Migori with quality
+        products since 2010.</p>
+      <a href="#products" class="btn">Shop Now</a>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about" id="about">
+    <div class="container">
+      <h2 class="section-title">About Kione Hardware</h2>
+      <div class="about-content">
+        <div class="about-text">
+          <p>Kione Hardware has been a cornerstone of the Migori County community since 2010, providing high-quality
+            construction materials, tools, and expert advice to both professionals and DIY enthusiasts.</p>
+          <p>Our mission is to empower builders, contractors, and homeowners with the tools and materials they need to
+            bring their projects to life. We pride ourselves on our knowledgeable staff, competitive prices, and
+            commitment to customer satisfaction.</p>
+          <p>Located in the heart of Migori, we serve customers from across the county and beyond, offering a wide range
+            of products from basic hardware to specialized construction materials.</p>
+          <a href="#contact" class="btn" style="margin-top: 20px;">Visit Our Store</a>
+        </div>
+        <div class="about-image">
+          <div
+            style="height: 300px; background-color: #e9ecef; display: flex; align-items: center; justify-content: center; color: #6c757d;">
+            Store Image
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products Section -->
+  <section class="products" id="products">
+    <div class="container">
+      <h2 class="section-title">Our Products</h2>
+      <div class="product-categories">
+        <button class="category-btn active" data-category="all">All Products</button>
+        <button class="category-btn" data-category="tools">Tools</button>
+        <button class="category-btn" data-category="materials">Building Materials</button>
+        <button class="category-btn" data-category="plumbing">Plumbing</button>
+        <button class="category-btn" data-category="electrical">Electrical</button>
+      </div>
+      <div class="products-grid">
+        <div class="product-card" data-category="tools">
+          <div class="product-image">Hammer Image</div>
+          <div class="product-info">
+            <h3>Claw Hammer</h3>
+            <p class="product-price">KES 850</p>
+            <p>Heavy-duty claw hammer for professional use.</p>
+          </div>
+        </div>
+        <div class="product-card" data-category="tools">
+          <div class="product-image">Drill Image</div>
+          <div class="product-info">
+            <h3>Cordless Drill</h3>
+            <p class="product-price">KES 4,500</p>
+            <p>18V cordless drill with lithium-ion battery.</p>
+          </div>
+        </div>
+        <div class="product-card" data-category="materials">
+          <div class="product-image">Cement Image</div>
+          <div class="product-info">
+            <h3>Portland Cement</h3>
+            <p class="product-price">KES 750/bag</p>
+            <p>High-quality construction cement.</p>
+          </div>
+        </div>
+        <div class="product-card" data-category="materials">
+          <div class="product-image">Nails Image</div>
+          <div class="product-info">
+            <h3>Assorted Nails</h3>
+            <p class="product-price">KES 200/kg</p>
+            <p>Various sizes of galvanized nails.</p>
+          </div>
+        </div>
+        <div class="product-card" data-category="plumbing">
+          <div class="product-image">Pipes Image</div>
+          <div class="product-info">
+            <h3>PVC Pipes</h3>
+            <p class="product-price">KES 1,200</p>
+            <p>1-inch PVC pipes for plumbing applications.</p>
+          </div>
+        </div>
+        <div class="product-card" data-category="electrical">
+          <div class="product-image">Wires Image</div>
+          <div class="product-info">
+            <h3>Electrical Wires</h3>
+            <p class="product-price">KES 3,500/roll</p>
+            <p>Copper electrical wires, 2.5mm.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="services" id="services">
+    <div class="container">
+      <h2 class="section-title">Our Services</h2>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">🔧</div>
+          <h3>Tool Rental</h3>
+          <p>Rent high-quality tools for your projects at affordable daily rates.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">📐</div>
+          <h3>Project Consultation</h3>
+          <p>Get expert advice for your construction and renovation projects.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🚚</div>
+          <h3>Delivery Service</h3>
+          <p>We deliver materials directly to your construction site.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">✂</div>
+          <h3>Custom Cutting</h3>
+          <p>We cut materials to your exact specifications.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team Section -->
+  <section class="team">
+    <div class="container">
+      <h2 class="section-title">Our Team</h2>
+      <div class="team-grid">
+        <div class="team-member">
+          <div class="member-photo">Viyl Photo</div>
+          <div class="member-info">
+            <h3>Viyl</h3>
+            <p class="member-role">Chief Executive Officer</p>
+            <p>With over 15 years in the hardware industry, Viyl leads Kione Hardware with vision and expertise.</p>
+          </div>
+        </div>
+        <div class="team-member">
+          <div class="member-photo">Ron Photo</div>
+          <div class="member-info">
+            <h3>Ron</h3>
+            <p class="member-role">Head of Finance</p>
+            <p>Ron ensures the financial health of our business and manages all financial operations.</p>
+          </div>
+        </div>
+        <div class="team-member">
+          <div class="member-photo">Team Member Photo</div>
+          <div class="member-info">
+            <h3>James</h3>
+            <p class="member-role">Store Manager</p>
+            <p>James oversees daily operations and ensures our customers receive exceptional service.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <h2 class="section-title">Contact Us</h2>
+      <div class="contact-container">
+        <div class="contact-info">
+          <h3>Get In Touch</h3>
+          <p>Visit our store in Migori or contact us using the information below:</p>
+
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div>
+              <h4>Address</h4>
+              <p>Main Street, Migori Town<br>Migori County, Kenya</p>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon">📞</div>
+            <div>
+              <h4>Phone</h4>
+              <p>+254 712 345 678</p>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon">✉</div>
+            <div>
+              <h4>Email</h4>
+              <p>info@kionehardware.co.ke</p>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon">🕒</div>
+            <div>
+              <h4>Business Hours</h4>
+              <p>Monday - Friday: 8:00 AM - 6:00 PM<br>Saturday: 9:00 AM - 4:00 PM<br>Sunday: Closed</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-form">
+          <h3>Send Us a Message</h3>
+          <form id="contactForm">
+            <div class="form-group">
+              <label for="name">Your Name</label>
+              <input type="text" id="name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Your Email</label>
+              <input type="email" id="email" required>
+            </div>
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <input type="text" id="subject" required>
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" required></textarea>
+            </div>
+            <button type="submit" class="btn">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>Kione Hardware</h3>
+          <p>Your trusted hardware partner in Migori County, providing quality products and services since 2010.</p>
+          <div class="social-links">
+            <a href="#" aria-label="Facebook">f</a>
+            <a href="#" aria-label="Twitter">t</a>
+            <a href="#" aria-label="Instagram">i</a>
+          </div>
+        </div>
+        <div class="footer-column">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#products">Products</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Products</h3>
+          <ul>
+            <li><a href="#">Tools</a></li>
+            <li><a href="#">Building Materials</a></li>
+            <li><a href="#">Plumbing Supplies</a></li>
+            <li><a href="#">Electrical Items</a></li>
+            <li><a href="#">Paint & Supplies</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Contact Info</h3>
+          <ul>
+            <li>Main Street, Migori Town</li>
+            <li>+254 712 345 678</li>
+            <li>info@kionehardware.co.ke</li>
+            <li>Open Mon-Fri: 8AM-6PM</li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2023 Kione Hardware. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const mainNav = document.getElementById('main-nav');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      mainNav.classList.toggle('active');
+    });
+
+    // Product Category Filter
+    const categoryBtns = document.querySelectorAll('.category-btn');
+    const productCards = document.querySelectorAll('.product-card');
+
+    categoryBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Remove active class from all buttons
+        categoryBtns.forEach(b => b.classList.remove('active'));
+        // Add active class to clicked button
+        btn.classList.add('active');
+
+        const category = btn.getAttribute('data-category');
+
+        // Show/hide products based on category
+        productCards.forEach(card => {
+          if (category === 'all' || card.getAttribute('data-category') === category) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Contact Form Submission
+    const contactForm = document.getElementById('contactForm');
+
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // Get form values
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const subject = document.getElementById('subject').value;
+      const message = document.getElementById('message').value;
+
+      // In a real application, you would send this data to a server
+      // For this example, we'll just show an alert
+      alert(`Thank you, ${name}! Your message has been received. We'll get back to you soon.`);
+
+      // Reset the form
+      contactForm.reset();
+    });
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+
+          // Close mobile menu if open
+          if (mainNav.classList.contains('active')) {
+            mainNav.classList.remove('active');
+          }
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
+
+<!-- 
+Features of the Kione Hardware Website:
+
+1. Professional Design - Clean, modern layout with a color scheme that reflects the hardware industry
+2. Responsive Layout - Works well on both desktop and mobile devices
+3. Key Sections:
+   · Hero section with call-to-action
+   · About section highlighting the company's mission
+   · Products section with category filtering
+   · Services offered by the store
+   · Team section featuring Viyl (CEO) and Ron (Head of Finance)
+   · Contact form and store information
+   · Footer with additional links and information
+4. Interactive Elements:
+   · Mobile-friendly navigation menu
+   · Product category filtering
+   · Contact form with validation
+   · Smooth scrolling between sections
+
+You can copy this code into an HTML file and open it directly in any browser to see the complete website. The design is fully functional with placeholder content that you can replace with actual images and specific product information. -->
